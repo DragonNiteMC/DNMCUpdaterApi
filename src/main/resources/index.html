@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-with, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Update Website">
+    <title>HyperNiteMC 插件更新 - 界面</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        * {
+            font-family: "Microsoft JhengHei",serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container justify-content-center align-content-center p-5">
+        <div class="jumbotron">
+            <h1 class="display-4">HyperNiteMC 插件更新</h1>
+            <p class="lead">點擊 <code>選擇 jar</code> 以開始上傳，上傳後將檢查插件名稱和版本。</p>
+            <hr class="my-4">
+            <p>注意: 你的 jar 必須 提供 plugin.yml 或 bungee.yml , 否則無法偵測。</p>
+            <a class="btn btn-primary" href="/plugins" role="button">瀏覽目前列表</a>
+            <a class="btn btn-success" href="/plugins?gui=true" role="button">瀏覽目前列表(界面)</a>
+            <a class="btn btn-warning" href="/logout" role="button" methods="POST">登出</a>
+        </div>
+        <div id="alert"></div>
+        <form method="post" enctype="multipart/form-data" action="/upload">
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" accept=".jar" onchange="changeFileName(this.value)" class="custom-file-input" id="uploader-file" name="files" aria-describedby="uploader">
+                    <label class="custom-file-label" for="uploader-file">選擇 jar</label>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="uploader" onclick="startUploading()">上傳</button>
+                </div>
+            </div>
+            <div class="progress" style="height: 0px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const reason = decodeURI(urlParams.get('reason'))
+    console.log(success)
+
+    const alert = $('#alert')
+    const label = $('.custom-file-label')
+    const input = $('.custom-file-input')
+    if (success === "true"){
+        clearOldFile()
+        alert.append(`
+            <div class="alert alert-success" role="alert">
+                上傳成功。
+            </div>
+        `)
+    }else if (success === "false"){
+        alert.append(`
+            <div class="alert alert-danger" role="alert">
+                上傳失敗: ${reason || '檔案不符合或為空'}
+            </div>
+        `)
+    }
+
+    function changeFileName(e){
+        label[0].innerText = e.replace("C:\\fakepath\\", "")
+    }
+
+    function clearOldFile(){
+        changeFileName("選擇 jar")
+        input[0].value = ""
+    }
+
+    function submitting(){
+        changeFileName(`正在上傳 ${input[0].value ?? "null"}...`)
+    }
+
+    let uploading = false
+
+    function startUploading(){
+        if (uploading) return
+        if (input[0].files.length === 0) return
+        submitting()
+        console.log('start uploading...')
+        uploading = true
+        const progress = $('.progress')
+        progress.css('height', '10px')
+    }
+</script>
+</html>

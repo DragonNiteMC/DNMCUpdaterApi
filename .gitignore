@@ -1,0 +1,8 @@
+/.idea/
+/docker/
+/target/
+/public/
+/uploads/
+config.yml
+dependency-reduced-pom.xml
+HNMCUpdaterApi.iml

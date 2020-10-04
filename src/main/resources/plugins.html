@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-with, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Update Website">
+    <title>HyperNiteMC 插件更新 - 插件列表</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        * {
+            font-family: "Microsoft JhengHei",serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container justify-content-center align-content-center p-5">
+        <div class="jumbotron">
+            <h1 class="display-4">HyperNiteMC 插件版本列表</h1>
+            <p>上傳插件以更新插件版本。</p>
+            <a class="btn btn-primary" href="/" role="button">上傳</a>
+        </div>
+        <ul class="list-group" id="plugin-list"></ul>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    const dom = $('#plugin-list')
+    fetch(`${window.location.origin}/plugins`).then(r=>r.json()).then(list => {
+        console.debug(list)
+        if (list && Object.keys(list).length > 0){
+            for (const plugin in list){
+                dom.append(`
+                <li class="list-group-item">插件名稱 ${plugin} - 版本 ${list[plugin]}</li>
+            `)
+            }
+        }else if (Object.keys(list).length === 0){
+            console.log(Object.keys(list).length)
+            dom.append(`
+                <li class="list-group-item">資料目前為空。</li>
+            `)
+        }else{
+            throw Error()
+        }
+    }).catch(err => {
+        console.error(err)
+        dom.append(`
+                <li class="list-group-item" style="color: red">資料獲取失敗。</li>
+            `)
+    })
+</script>
+</html>

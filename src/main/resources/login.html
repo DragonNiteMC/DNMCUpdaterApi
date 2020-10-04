@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-with, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Update Website">
+    <title>HyperNiteMC 插件更新 - 登入</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        * {
+            font-family: "Microsoft JhengHei",serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container justify-content-center align-content-center">
+        <div class="jumbotron">
+            <h1 class="display-4">登入插件更新界面</h1>
+            <p class="lead">本界面是用於作為檢查 HyperNiteMC 插件版本時的參考的最新版本，透過上傳最新版本插件來獲得最新版本標準。</p>
+            <hr class="my-4">
+            <p>API 使用方式: <code>[本網址]/plugins</code> , 將返回各插件名稱和版本的json列表</p>
+            <a class="btn btn-primary" href="/plugins" role="button">點擊瀏覽</a>
+            <a class="btn btn-success" href="/plugins?gui=true" role="button">點擊瀏覽界面</a>
+        </div>
+        <div id="alert"></div>
+        <form action="/auth" method="post">
+            <div class="form-group">
+                <label for="input-username">用戶名</label>
+                <input type="text" class="form-control" id="input-username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="input-password">密碼</label>
+                <input type="password" class="form-control" id="input-password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">登入</button>
+        </form>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    if (success === "false"){
+        console.log("login failed")
+        $('#alert').append(`
+            <div class="alert alert-danger" role="alert">
+                登入失敗: 錯誤密碼或賬戶。
+            </div>
+        `)
+
+    }
+</script>
+</html>

@@ -6,7 +6,7 @@
 
     <groupId>com.hypernite.rest</groupId>
     <artifactId>HNMCUpdaterApi</artifactId>
-    <version>1.1</version>
+    <version>version-inside-code</version>
 
     <dependencies>
         <dependency>
@@ -38,6 +38,7 @@
 
 
     <build>
+        <finalName>webapi</finalName>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <resources>
             <resource>

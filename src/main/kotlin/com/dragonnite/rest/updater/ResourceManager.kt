@@ -1,4 +1,4 @@
-package com.hypernite.rest.updater
+package com.dragonnite.rest.updater
 
 import java.io.*
 import java.net.URL

@@ -1,4 +1,4 @@
-package com.hypernite.rest.updater
+package com.dragonnite.rest.updater
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper

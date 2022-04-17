@@ -17,7 +17,6 @@ import java.net.URLEncoder
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.*
-import java.util.logging.Logger
 
 
 fun log(string: String) {

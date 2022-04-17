@@ -56,4 +56,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: registry.chu77.xyz/hnmc-updater-api:latest
+          tags: registry.chu77.xyz/dnmc-updater-api:latest
